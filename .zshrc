@@ -1,6 +1,9 @@
 # Disable terminal beep
 unsetopt BEEP
 
+# set auto cd
+setopt AUTO_CD
+
 # History configuration
 HISTFILE=$HOME/.zsh_history
 SAVEHIST=1000
@@ -126,6 +129,10 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # bat (better cat) configuration
 export BAT_THEME=tokyonight_night
+
+# Set nvim as man pager
+export MANPAGER='nvim +Man!'
+export MANWIDTH=999
 
 # bun completions
 [ -s "~/.bun/_bun" ] && source "~/.bun/_bun"
