@@ -31,6 +31,7 @@ ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --zsh)"
+source <(fzf --zsh)
 
 # -- Use fd instead of fzf --
 
@@ -96,6 +97,16 @@ help() {
     "$@" --help 2>&1 | bathelp
 }
 
+# yazi startup with yy
+function yy() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
 # ---- Alias Definitions ----
 
 # Git and utility aliases
@@ -111,8 +122,14 @@ alias bats='fd --type f --strip-cwd-prefix | fzf --preview "bat --color=always -
 alias cat=bat
 alias bathelp='bat --plain --language=help'
 alias rmrf='rm -rf'
+alias vzsh="nvim ~/.config/zshrc/.zshrc"
+# Source the zshrc file
+alias srz="source ~/.zshrc && echo 'Zsh configuration reloaded'"
+# open yt music
+alias ytm="open -a Arc 'https://music.youtube.com'"
 
 # ---- Environment Setup ----
+export PATH="$HOME/.config/zshrc/scripts:$PATH"
 
 # Node Version Manager
 export NVM_DIR="$HOME/.nvm"
@@ -141,3 +158,5 @@ export MANWIDTH=999
 # Starship prompt initialization
 eval "$(starship init zsh)"
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+
+eval $(thefuck --alias)
