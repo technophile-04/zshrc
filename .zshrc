@@ -160,3 +160,29 @@ eval "$(starship init zsh)"
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 
 eval $(thefuck --alias)
+
+# fnm
+FNM_PATH="/Users/shivbhonde/Library/Application Support/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="/Users/shivbhonde/Library/Application Support/fnm:$PATH"
+  eval "`fnm env`"
+fi
+
+eval "$(fnm env --use-on-cd --shell zsh)"
+
+# Sesh 
+function T() {
+  {
+    exec </dev/tty
+    exec <&1
+    local session
+    session=$(sesh list -t -c -z | fzf --height 40% --reverse --border-label ' sesh ' --border --prompt '⚡  ')
+    zle reset-prompt > /dev/null 2>&1 || true
+    [[ -z "$session" ]] && return
+    sesh connect $session
+  }
+}
+zle     -N             T
+bindkey -M emacs '\es' T
+bindkey -M vicmd '\es' T
+bindkey -M viins '\es' T
