@@ -13,6 +13,8 @@ setopt hist_expire_dups_first
 setopt hist_ignore_dups
 setopt hist_verify
 
+autoload -Uz compinit && compinit
+
 # Key bindings for history search
 bindkey '^[[A' history-search-backward
 bindkey '^[[B' history-search-forward
@@ -22,6 +24,7 @@ bindkey '^[[B' history-search-forward
 # Autocompletion plugins
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $(brew --prefix)/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 # Vi mode plugin
 source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
@@ -114,6 +117,7 @@ alias gst="git status"
 alias gp="git pull"
 alias gs="gst"
 alias vi="nvim"
+alias code="cursor"
 alias c="clear"
 alias ll="eza -l --icons=always"
 alias ls=eza
@@ -186,3 +190,16 @@ zle     -N             T
 bindkey -M emacs '\es' T
 bindkey -M vicmd '\es' T
 bindkey -M viins '\es' T
+
+# configure asdf
+. "$HOME/.asdf/asdf.sh"
+
+# completions for asdf
+fpath=(${ASDF_DIR}/completions $fpath)
+# initialise completions with ZSH's compinit
+autoload -Uz compinit && compinit
+export PATH="/opt/homebrew/opt/node@22/bin:$PATH"
+
+if command -v ngrok &>/dev/null; then
+  eval "$(ngrok completion)"
+fi
