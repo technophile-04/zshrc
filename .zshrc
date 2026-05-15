@@ -117,11 +117,12 @@ alias gst="git status"
 alias gp="git pull"
 alias gs="gst"
 alias vi="nvim"
-alias code="cursor"
+alias code="cursor -r"
+alias cursor="cursor -r"
 alias c="clear"
+alias tr=trash
 alias ll="eza -l --icons=always"
 alias ls=eza
-alias rm=trash
 alias bats='fd --type f --strip-cwd-prefix | fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
 alias cat=bat
 alias bathelp='bat --plain --language=help'
@@ -131,6 +132,21 @@ alias vzsh="nvim ~/.config/zshrc/.zshrc"
 alias srz="source ~/.zshrc && echo 'Zsh configuration reloaded'"
 # open yt music
 alias ytm="open -a Arc 'https://music.youtube.com'"
+
+# open localhost:3000
+alias 30="open -a Arc 'http://localhost:3000'"
+alias 31="open -a Arc 'http://localhost:3001'"
+alias vite="open -a Arc 'http://localhost:5173'"
+
+# remove test dir's
+rmtest() {
+  for dir in test-*; do
+    if [ -d "$dir" ]; then
+      echo "Removing $dir"
+      rmrf "$dir"
+    fi
+  done
+}
 
 # ---- Environment Setup ----
 export PATH="$HOME/.config/zshrc/scripts:$PATH"
@@ -203,3 +219,32 @@ export PATH="/opt/homebrew/opt/node@22/bin:$PATH"
 if command -v ngrok &>/dev/null; then
   eval "$(ngrok completion)"
 fi
+
+# opencode
+export PATH=/Users/shivbhonde/.opencode/bin:$PATH
+
+
+# claude code claude --allow-dangerously-skip-permissions
+alias cc="claude --allow-dangerously-skip-permissions"
+
+# Added by Antigravity
+export PATH="/Users/shivbhonde/.antigravity/antigravity/bin:$PATH"
+
+# Added by Antigravity
+export PATH="/Users/shivbhonde/.antigravity/antigravity/bin:$PATH"
+
+# Added by Antigravity
+export PATH="/Users/shivbhonde/.antigravity/antigravity/bin:$PATH"
+
+# Added by Antigravity
+export PATH="/Users/shivbhonde/.antigravity/antigravity/bin:$PATH"
+
+# Added by Antigravity
+export PATH="/Users/shivbhonde/.antigravity/antigravity/bin:$PATH"
+
+# Added by Antigravity
+export PATH="/Users/shivbhonde/.antigravity/antigravity/bin:$PATH"
+
+# Source machine-local secrets (gitignored, never pushed)
+[ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
+

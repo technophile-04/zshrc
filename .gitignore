@@ -1,0 +1,7 @@
+# Machine-local secrets — never committed. Lives at $HOME/.zshrc.local,
+# sourced from .zshrc. Listed here as defense-in-depth in case the file
+# ever ends up inside the repo directory by mistake.
+.zshrc.local
+
+# macOS noise
+.DS_Store
