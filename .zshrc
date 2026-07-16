@@ -21,13 +21,16 @@ bindkey '^[[B' history-search-forward
 
 # ---- Plugins ----
 
+# Homebrew prefix (avoid rerunning `brew --prefix`, which fails when cwd is deleted)
+BREW_PREFIX="${HOMEBREW_PREFIX:-/opt/homebrew}"
+
 # Autocompletion plugins
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $(brew --prefix)/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+source "$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "$BREW_PREFIX/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
 
 # Vi mode plugin
-source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+source "$BREW_PREFIX/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
 ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 
 # ---- FZF -----
@@ -120,7 +123,8 @@ alias vi="nvim"
 alias code="cursor -r"
 alias cursor="cursor -r"
 alias c="clear"
-alias tr=trash
+# not `tr` — that shadows coreutils tr, so any `| tr -d '\n'` becomes a delete
+alias rmt=trash
 alias ll="eza -l --icons=always"
 alias ls=eza
 alias bats='fd --type f --strip-cwd-prefix | fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
@@ -132,6 +136,8 @@ alias vzsh="nvim ~/.config/zshrc/.zshrc"
 alias srz="source ~/.zshrc && echo 'Zsh configuration reloaded'"
 # open yt music
 alias ytm="open -a Arc 'https://music.youtube.com'"
+# copy the wordking dir
+alias pwc="pwd | pbcopy"
 
 # open localhost:3000
 alias 30="open -a Arc 'http://localhost:3000'"
@@ -248,3 +254,14 @@ export PATH="/Users/shivbhonde/.antigravity/antigravity/bin:$PATH"
 # Source machine-local secrets (gitignored, never pushed)
 [ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
 
+
+# pnpm
+export PNPM_HOME="/Users/shivbhonde/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# agent-native plans cli (pass subcommands/flags yourself, e.g. `an plan local serve --dir "1. Projects/hive/plans/hive-v1-build" --kind plan --open` from ~/Documents/shiv)
+alias an='npx @agent-native/core@latest'
