@@ -128,7 +128,6 @@ alias rmt=trash
 alias ll="eza -l --icons=always"
 alias ls=eza
 alias bats='fd --type f --strip-cwd-prefix | fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
-alias cat=bat
 alias bathelp='bat --plain --language=help'
 alias rmrf='rm -rf'
 alias vzsh="nvim ~/.config/zshrc/.zshrc"
