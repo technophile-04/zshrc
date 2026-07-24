@@ -225,12 +225,11 @@ if command -v ngrok &>/dev/null; then
   eval "$(ngrok completion)"
 fi
 
-# opencode
-export PATH=/Users/shivbhonde/.opencode/bin:$PATH
-
-
 # claude code claude --allow-dangerously-skip-permissions
 alias cc="claude --allow-dangerously-skip-permissions"
+
+# codex cli, no approval prompts + no sandbox
+alias cx="codex --dangerously-bypass-approvals-and-sandbox"
 
 # Added by Antigravity
 export PATH="/Users/shivbhonde/.antigravity/antigravity/bin:$PATH"
